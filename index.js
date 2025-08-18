@@ -37,6 +37,14 @@ async function run() {
       res.send(result);
     });
 
+    //? get a coffee
+    app.get("/coffee/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const result = await coffeesCollection.findOne(query);
+      res.send(result);
+    });
+
     //? post a coffee data to database
     app.post("/coffees", async (req, res) => {
       const formData = req.body;
