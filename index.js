@@ -29,6 +29,8 @@ async function run() {
       .db("espressoEmporiumDB")
       .collection("coffees");
 
+    const usersCollection = client.db("espressoEmporiumDB").collection("users");
+
     //! coffee related api
 
     //? get all coffee from database
@@ -83,6 +85,14 @@ async function run() {
       const id = req.params.id;
       const query = { _id: new ObjectId(id) };
       const result = await coffeesCollection.deleteOne(query);
+      res.send(result);
+    });
+
+    //! users related api
+    //? create a user
+    app.post("/users", async (req, res) => {
+      const newUser = req.body;
+      const result = await usersCollection.insertOne(newUser);
       res.send(result);
     });
 
