@@ -103,6 +103,19 @@ async function run() {
       res.send(result);
     });
 
+    //? update user's last login time
+    app.patch("/users", async (req, res) => {
+      const email = req.body?.email;
+      const filter = { email };
+      const updatedDoc = {
+        $set: {
+          lastSigninAt: req.body?.lastSigninAt,
+        },
+      };
+      const result = await usersCollection.updateOne(filter, updatedDoc);
+      res.send(result);
+    });
+
     //? delete a user
     app.delete("/users/:id", async (req, res) => {
       const id = req.params.id;
