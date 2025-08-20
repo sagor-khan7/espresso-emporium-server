@@ -89,6 +89,13 @@ async function run() {
     });
 
     //! users related api
+
+    //? get all users
+    app.get("/users", async (req, res) => {
+      const result = await usersCollection.find().toArray();
+      res.send(result);
+    });
+
     //? create a user
     app.post("/users", async (req, res) => {
       const newUser = req.body;
